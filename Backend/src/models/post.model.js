@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     defaut: "",
   },
-  imgUrl: {
+  img_url: {
     type: String,
     required: [true, "Please upload some image"],
   },
