@@ -9,16 +9,20 @@ const client = new imageKit({
 });
 
 async function createPostController(req, res) {
+  // Request token from cookies.
   const token = req.cookies.token;
 
+  // Validate token, if not present, return 401.
   if (!token) {
     return res.status(401).json({
       message: "Unauthorized",
     });
   }
 
+  // Verify token. If invalid, return 401.
+  let decoded = null;
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
     return res.status(401).json({
       message: "User not authorized",
