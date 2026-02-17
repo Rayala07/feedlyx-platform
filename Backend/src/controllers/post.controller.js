@@ -20,12 +20,12 @@ async function createPostController(req, res) {
   }
 
   // Verify token. If invalid, return 401.
-  let decoded = null;
+  let decoded;
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
     return res.status(401).json({
-      message: "User not authorized",
+      message: "Unauthorized",
     });
   }
 
@@ -48,6 +48,39 @@ async function createPostController(req, res) {
   });
 }
 
+async function getPostController(req, res) {
+  // Validate user by checking token from cookies.
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
+  let decoded = null;
+
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
+  const userId = decoded.id;
+
+  const posts = await postModel.find({
+    user: userId,
+  });
+
+  res.status(200).json({
+    message: "Fetch success",
+    posts,
+  });
+}
+
 module.exports = {
   createPostController,
+  getPostController,
 };
