@@ -80,7 +80,50 @@ async function getPostController(req, res) {
   });
 }
 
+async function getPostDetailsController(req, res) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
+  let decoded;
+
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
+  const userId = decoded.id;
+  const postId = req.params.postId;
+
+  const getPost = await postModel.findById(postId);
+
+  if (!getPost) {
+    return res.status(404).json({
+      message: "Post not found",
+    });
+  }
+
+  if (userId !== getPost.user.toString()) {
+    return res.status(403).json({
+      message: "Forbidden Content",
+    });
+  }
+
+  res.status(200).json({
+    message: "Post Fetch Success",
+    getPost,
+  });
+}
+
 module.exports = {
   createPostController,
   getPostController,
+  getPostDetailsController,
 };
