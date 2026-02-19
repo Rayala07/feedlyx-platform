@@ -1,7 +1,6 @@
 const imageKit = require("@imagekit/nodejs");
 const { toFile } = require("@imagekit/nodejs");
 const postModel = require("../models/post.model");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const client = new imageKit({
@@ -9,26 +8,6 @@ const client = new imageKit({
 });
 
 async function createPostController(req, res) {
-  // Request token from cookies.
-  const token = req.cookies.token;
-
-  // Validate token, if not present, return 401.
-  if (!token) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-
-  // Verify token. If invalid, return 401.
-  let decoded;
-  try {
-    decoded = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (err) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-
   // File upload to imagekit
   const file = await client.files.upload({
     file: await toFile(Buffer.from(req.file.buffer), "file"),
@@ -39,7 +18,7 @@ async function createPostController(req, res) {
   const post = await postModel.create({
     caption: req.body.caption,
     img_url: file.url,
-    user: decoded.id,
+    user: req.user.id,
   });
 
   res.status(201).json({
@@ -49,26 +28,7 @@ async function createPostController(req, res) {
 }
 
 async function getPostController(req, res) {
-  // Validate user by checking token from cookies.
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-
-  let decoded = null;
-
-  try {
-    decoded = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (err) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-
-  const userId = decoded.id;
+  const userId = req.user.id;
 
   const posts = await postModel.find({
     user: userId,
@@ -81,25 +41,7 @@ async function getPostController(req, res) {
 }
 
 async function getPostDetailsController(req, res) {
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-
-  let decoded;
-
-  try {
-    decoded = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (err) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-
-  const userId = decoded.id;
+  const userId = req.user.id;
   const postId = req.params.postId;
 
   const getPost = await postModel.findById(postId);
