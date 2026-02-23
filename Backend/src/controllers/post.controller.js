@@ -1,6 +1,7 @@
 const imageKit = require("@imagekit/nodejs");
 const { toFile } = require("@imagekit/nodejs");
 const postModel = require("../models/post.model");
+const likeModel = require("../models/like.model");
 require("dotenv").config();
 
 const client = new imageKit({
@@ -64,8 +65,32 @@ async function getPostDetailsController(req, res) {
   });
 }
 
+async function likePostController(req, res) {
+  const userId = req.user.id;
+  const postId = req.params.postId;
+
+  const post = await postModel.findById(postId);
+
+  if (!post) {
+    return res.status(404).json({
+      message: "Post not found",
+    });
+  }
+
+  const like = await likeModel.create({
+    post: postId,
+    user: userId,
+  });
+
+  res.status(201).json({
+    message: "Post liked successfully",
+    like,
+  });
+}
+
 module.exports = {
   createPostController,
   getPostController,
   getPostDetailsController,
+  likePostController,
 };

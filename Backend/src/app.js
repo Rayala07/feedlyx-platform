@@ -12,7 +12,8 @@ const userRouter = require("./routes/user.routes");
 
 // Use routes
 app.use("/api/auth", authRouter);
-app.use("/api/posts", postRouter);
 app.use("/api/users", userRouter);
+app.use("/api/posts", postRouter);
+
 
 module.exports = app;
