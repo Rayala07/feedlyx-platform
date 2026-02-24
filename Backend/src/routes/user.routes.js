@@ -5,15 +5,33 @@ const identifyUser = require("../middlewares/auth.middleware");
 const userRouter = express.Router();
 
 userRouter.post(
-  "/follow/:id",
+  "/follow/request/:id",
   identifyUser,
-  userController.followUserController,
+  userController.sendFollowRequest,
 );
 
-userRouter.post(
-  "/unfollow/:id",
+userRouter.patch(
+  "/follow/accept/:followId",
   identifyUser,
-  userController.unfollowUserController,
+  userController.acceptFollowRequest,
+);
+
+userRouter.get(
+  "/follow/requests/incoming",
+  identifyUser,
+  userController.getAllFollowRequests,
+);
+
+userRouter.patch(
+  "/follow/reject/:followId",
+  identifyUser,
+  userController.rejectFollowRequest,
+);
+
+userRouter.delete(
+  "/unfollow/:followId",
+  identifyUser,
+  userController.unfollowUser,
 );
 
 module.exports = userRouter;
