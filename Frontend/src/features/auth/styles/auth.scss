@@ -1,0 +1,125 @@
+.auth-page {
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.822);
+}
+
+.auth-layout {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "left right";
+
+  overflow: hidden;
+
+  .auth-left {
+    grid-area: left;
+    background: url("https://images.unsplash.com/photo-1620421680010-0766ff230392?q=80&w=749&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+
+  .auth-right {
+    grid-area: right;
+
+    .form-layout {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+
+      .form-top {
+        width: 27rem;
+        text-align: left;
+        #form-title {
+          font-size: 3.2rem;
+          font-weight: 650;
+          letter-spacing: -0.02em;
+          color: #111827;
+        }
+        #form-subtitle {
+          font-size: 1rem;
+          color: #64748b;
+          margin-left: 0.25rem;
+          font-weight: 400;
+        }
+      }
+
+      .main-form {
+        width: 27rem;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 2.5rem;
+        background: #ffffff;
+
+        .form-input {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        p {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: #334155;
+        }
+
+        input {
+          width: 100%;
+          padding: 0.8rem 0.9rem;
+          border: none;
+          border-radius: 0.6rem;
+          outline: none;
+          font-size: 0.95rem;
+          border: solid 1px #e5e7eb;
+
+          transition: all 0.2s ease;
+        }
+
+        input:focus {
+          border-color: #5b7cfa;
+          box-shadow: 0 0 0 3px rgba(91, 124, 250, 0.18);
+        }
+
+        button {
+          padding-block: 1rem;
+          border-radius: 0.8rem;
+          color: whitesmoke;
+          font-weight: 500;
+          letter-spacing: 0.01em;
+          border: none;
+          cursor: pointer;
+          font-size: 0.95rem;
+          background: linear-gradient(135deg, #5b7cfa, #4f46e5);
+
+          transition: all 0.2s ease;
+        }
+
+        button:hover {
+          background: linear-gradient(135deg, #4f6ef7, #4338ca);
+          transform: translateY(-1.5px);
+        }
+      }
+
+      .form-redirect {
+        font-size: 1.15rem;
+
+        .form-redirect-cta {
+          text-decoration: none;
+          color: #4f6ef7;
+          font-weight: 500;
+        }
+
+        .form-redirect-cta:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
