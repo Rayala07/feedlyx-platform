@@ -88,9 +88,25 @@ async function likePostController(req, res) {
   });
 }
 
+async function postFeedController(req, res) {
+  const posts = await postModel.find().populate("user");
+
+  if (!posts) {
+    return res.status(404).json({
+      message: "Posts not found",
+    });
+  }
+
+  return res.status(200).json({
+    message: "Posts fetched successfully",
+    posts,
+  });
+}
+
 module.exports = {
   createPostController,
   getPostController,
   getPostDetailsController,
   likePostController,
+  postFeedController,
 };

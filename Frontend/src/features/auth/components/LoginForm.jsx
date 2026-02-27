@@ -7,14 +7,21 @@ const LoginForm = () => {
     const [identifier, setIdentifier] = useState("")
     const [password, setPassword] = useState("")
 
-    const {handleLogin} = useAuth();
+    const {handleLogin, loading} = useAuth();
 
     const navigate = useNavigate();
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-
         handleLogin(identifier, password).then(navigate("/"))
+    }
+
+    if(loading) {
+        return (
+            <main>
+                <img src="/media/images/pacman-loading.svg" alt="Loading..." />
+            </main>
+        )
     }
 
   return (

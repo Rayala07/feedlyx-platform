@@ -22,8 +22,8 @@ export function AuthProvider({ children }) {
   };
 
   const handleLogin = async (identifier, password) => {
-    setLoading(true);
     try {
+      setLoading(true);
       const isEmail = identifier.includes("@");
 
       const username = isEmail ? "" : identifier;
