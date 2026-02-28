@@ -10,3 +10,5 @@ export async function fetchPosts() {
 
   return response.data;
 }
+
+export async function createPost() {}

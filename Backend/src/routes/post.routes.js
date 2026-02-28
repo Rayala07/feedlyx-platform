@@ -7,7 +7,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const postRouter = express.Router();
 
 postRouter.post(
-  "/",
+  "/create",
   upload.single("image"),
   identifyUser,
   postController.createPostController,

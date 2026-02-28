@@ -1,16 +1,18 @@
 import React from 'react'
 import {RiBookmarkLine, RiHeartLine} from "@remixicon/react"
 
-const Post = ({username, idx, image}) => {
+const Post = ({profile ,username, idx, image, caption}) => {
   return (
     <article className="feed-card" id={idx}>
         <div className="feed-card__header">
-            <div className="feed-card__avatar" />
+            <div className="feed-card__avatar">
+                <img className='profile-image' src={profile} alt="" />
+            </div>
             <span className="feed-card__username">{username}</span>
         </div>
 
         <div className="feed-card__image">
-            <img src={image} alt="" />
+            <img className='img-container' src={image} alt="" />
         </div>
 
         {/* Actions */}
@@ -26,10 +28,9 @@ const Post = ({username, idx, image}) => {
 
         {/* Caption */}
         <div className="feed-card__caption">
-            <span className="feed-card__caption-user">username</span>
+            <span className="feed-card__caption-user">{username}</span>
             <span className="feed-card__caption-text">
-            This is a long caption example that should wrap properly inside the
-            boundary without breaking the layout even if the text is extremely long.
+            {caption}
             </span>
         </div>
     </article>

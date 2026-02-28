@@ -10,6 +10,7 @@ const Feed = () => {
   useEffect(()=> {
     handleGetFeed()
   },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   []
 )
 
@@ -33,7 +34,7 @@ const Feed = () => {
           <div className="feed-list">
             {/* Post */}
             {feed.map((post, idx) => {
-              return <Post idx={idx} username={post.user.username} image={post.img_url}/>
+              return <Post idx={idx} profile={post.user.profileImage} username={post.user.username} image={post.img_url} caption={post.caption}/>
             })}
           </div>
 

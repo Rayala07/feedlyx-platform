@@ -89,7 +89,11 @@ async function likePostController(req, res) {
 }
 
 async function postFeedController(req, res) {
-  const posts = await postModel.find().populate("user");
+  const posts = await Promise.all((await postModel.find().populate("user")).map(
+    async (post) => {
+      return post.caption;
+    },
+  ));
 
   if (!posts) {
     return res.status(404).json({
