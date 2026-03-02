@@ -11,4 +11,16 @@ export async function fetchPosts() {
   return response.data;
 }
 
+export async function likePost(postId) {
+  const response = await post_api.post(`/like/${postId}`);
+
+  return response.data;
+}
+
+export async function unlikePost(postId) {
+  const response = await post_api.post(`/unlike/${postId}`);
+
+  return response.data;
+}
+
 export async function createPost() {}

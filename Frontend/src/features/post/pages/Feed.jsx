@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 import "../styles/feed.scss";
 import { usePost } from "../hooks/usePost";
 import Post from "../components/Post";
+import {useNavigate} from "react-router-dom"
 
 const Feed = () => {
 
   const {feed, handleGetFeed, loading} = usePost()
+
+  const navigate = useNavigate();
 
   useEffect(()=> {
     handleGetFeed()
@@ -14,7 +17,7 @@ const Feed = () => {
   []
 )
 
-  if(loading || !feed) {
+  if(loading) {
     return (
       <main>
         <h1>Loading...</h1>
@@ -22,7 +25,17 @@ const Feed = () => {
     )
   }
 
-  console.log(feed)
+  if(!feed) {
+    return (
+      <main>
+        <h1>Error Loading Feed :(</h1>
+      </main>
+    )
+  }
+
+  const handleCreatePostClick = () => {
+    navigate("/create-post")
+  }
 
   return (
     <main className="feed-page">
@@ -33,14 +46,14 @@ const Feed = () => {
 
           <div className="feed-list">
             {/* Post */}
-            {feed.map((post, idx) => {
-              return <Post idx={idx} profile={post.user.profileImage} username={post.user.username} image={post.img_url} caption={post.caption}/>
+            {feed.map((post) => {
+              return <Post key={post._id} post={post}/>
             })}
           </div>
 
           <nav className="feed-nav">
             <button className="feed-nav__btn">Home</button>
-            <button className="feed-nav__btn feed-nav__btn--add">+</button>
+            <button onClick={handleCreatePostClick} className="feed-nav__btn feed-nav__btn--add">+</button>
             <button className="feed-nav__btn">Profile</button>
           </nav>
 

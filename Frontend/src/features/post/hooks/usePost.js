@@ -1,4 +1,4 @@
-import { fetchPosts } from "../services/post.api";
+import { fetchPosts, likePost, unlikePost } from "../services/post.api";
 import { useContext } from "react";
 import { PostContext } from "../post.context";
 
@@ -19,5 +19,30 @@ export const usePost = () => {
     }
   };
 
-  return { loading, post, feed, handleGetFeed };
+  const handleToggleLike = async (postId) => {
+    if (!feed) return;
+
+    const prevFeed = [...feed];
+
+    const updatedFeed = feed.map((p) =>
+      p._id === postId ? { ...p, isLiked: !p.isLiked } : p,
+    );
+
+    setFeed(updatedFeed);
+
+    const clickedPost = feed.find((p) => p._id === postId);
+
+    try {
+      if (!clickedPost.isLiked) {
+        await likePost(postId);
+      } else {
+        await unlikePost(postId);
+      }
+    } catch (err) {
+      setFeed(prevFeed);
+      console.log(err);
+    }
+  };
+
+  return { loading, post, feed, handleGetFeed, handleToggleLike };
 };
