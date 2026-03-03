@@ -23,4 +23,6 @@ export async function unlikePost(postId) {
   return response.data;
 }
 
-export async function createPost() {}
+export async function createPost() {
+  const response = await post_api.post("/create")
+}

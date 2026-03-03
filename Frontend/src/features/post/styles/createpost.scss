@@ -1,0 +1,141 @@
+$bg-primary: #0f1117;
+$bg-card: #151822;
+$border-soft: rgba(255, 255, 255, 0.12);
+$border-strong: rgba(255, 255, 255, 0.25);
+$text-primary: #f5f7fa;
+$text-muted: rgba(255, 255, 255, 0.55);
+$accent: #5e6ad2;
+
+.create-post {
+  min-height: 100vh;
+  background: radial-gradient(
+      circle at top left,
+      rgba(94, 106, 210, 0.08),
+      transparent 40%
+    ),
+    $bg-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.create-post__card {
+  width: 100%;
+  max-width: 520px;
+  background: $bg-card;
+  border: 1px solid $border-soft;
+  border-radius: 22px;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.create-post__upload {
+  width: 240px;
+  height: 240px;
+  border: 2px dashed $border-strong;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+
+  span {
+    font-size: 0.9rem;
+    color: $text-muted;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  &:hover {
+    border-color: $accent;
+    background: rgba(94, 106, 210, 0.05);
+  }
+
+  &.dragging {
+    border-color: $accent;
+    background: rgba(94, 106, 210, 0.1);
+  }
+}
+
+.create-post__preview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+
+    &:hover {
+      background: $accent;
+    }
+  }
+}
+
+.create-post__input {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  background: transparent;
+  border: 1px solid $border-soft;
+  border-radius: 12px;
+  color: $text-primary;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    border-color: $accent;
+    box-shadow: 0 0 0 3px rgba(94, 106, 210, 0.2);
+  }
+}
+
+.create-post__button {
+  padding: 0.6rem 1.6rem;
+  background: transparent;
+  border: 1px solid $border-strong;
+  border-radius: 10px;
+  color: $text-primary;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: $accent;
+    border-color: $accent;
+    box-shadow: 0 6px 20px rgba(94, 106, 210, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
