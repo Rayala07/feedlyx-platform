@@ -3,6 +3,7 @@ import "../styles/feed.scss";
 import { usePost } from "../hooks/usePost";
 import Post from "../components/Post";
 import {useNavigate} from "react-router-dom"
+import Loader from "../../shared/components/Loader";
 
 const Feed = () => {
 
@@ -19,9 +20,7 @@ const Feed = () => {
 
   if(loading) {
     return (
-      <main>
-        <h1>Loading...</h1>
-      </main>
+      <Loader />
     )
   }
 
@@ -35,6 +34,10 @@ const Feed = () => {
 
   const handleCreatePostClick = () => {
     navigate("/create-post")
+  }
+
+  const handleProfileClick = () => {
+    navigate("/user-profile")
   }
 
   return (
@@ -54,7 +57,7 @@ const Feed = () => {
           <nav className="feed-nav">
             <button className="feed-nav__btn">Home</button>
             <button onClick={handleCreatePostClick} className="feed-nav__btn feed-nav__btn--add">+</button>
-            <button className="feed-nav__btn">Profile</button>
+            <button onClick={handleProfileClick} className="feed-nav__btn">Profile</button>
           </nav>
 
         </div>

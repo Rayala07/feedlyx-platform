@@ -112,16 +112,18 @@ async function postFeedController(req, res) {
   const user = req.user.id;
 
   const posts = await Promise.all(
-    (await postModel.find().populate("user").lean()).map(async (post) => {
-      const isLiked = await likeModel.findOne({
-        user: user,
-        post: post._id,
-      });
+    (await postModel.find().sort({ _id: -1 }).populate("user").lean()).map(
+      async (post) => {
+        const isLiked = await likeModel.findOne({
+          user: user,
+          post: post._id,
+        });
 
-      post.isLiked = Boolean(isLiked);
+        post.isLiked = Boolean(isLiked);
 
-      return post;
-    }),
+        return post;
+      },
+    ),
   );
 
   if (!posts) {
