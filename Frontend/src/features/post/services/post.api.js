@@ -23,6 +23,13 @@ export async function unlikePost(postId) {
   return response.data;
 }
 
-export async function createPost() {
-  const response = await post_api.post("/create")
+export async function createPost(imgFile, caption) {
+  const formData = new FormData();
+
+  formData.append("image", imgFile);
+  formData.append("caption", caption);
+
+  const response = await post_api.post("/create", formData);
+
+  return response.data;
 }

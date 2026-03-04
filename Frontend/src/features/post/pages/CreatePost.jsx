@@ -1,96 +1,45 @@
-import React, { useRef, useState } from "react";
+import { useState, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import "../styles/createpost.scss"
+import { usePost } from "../hooks/usePost"
 
 const CreatePost = () => {
-  const fileInputRef = useRef(null);
-  const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
+  const [caption, setCaption] = useState("")
+  const postImageRef = useRef(null)
 
-  const handleFileChange = (file) => {
-    if (!file) return;
+  const {handleCreatePost} = usePost()
 
-    if (!file.type.startsWith("image/")) {
-      alert("Please upload an image file.");
-      return;
+  const navigate = useNavigate()
+
+
+  const handlePostSubmit = async(e) => {
+    e.preventDefault()
+
+    try {
+      const imageFile = postImageRef.current.files[0];
+      await handleCreatePost(imageFile, caption)
+      navigate("/")
+    } catch(err) {
+      console.log(err)
     }
-
-    setImage(file);
-    setPreview(URL.createObjectURL(file));
-  };
-
-  const handleInputChange = (e) => {
-    const file = e.target.files[0];
-    handleFileChange(file);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const file = e.dataTransfer.files[0];
-    handleFileChange(file);
-  };
-
-  const handleRemoveImage = () => {
-    setImage(null);
-    setPreview(null);
-  };
+  } 
 
   return (
-    <div className="create-post">
-      <div className="create-post__card">
-        {/* Hidden Input */}
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleInputChange}
-          hidden
-        />
+    <main className="create-post-page">
+      <div className="form-container">
+        <p id="create-page-header">Share Your Moments</p>
+          <form className="upload-form" onSubmit={handlePostSubmit}>
+            <label id="post-image-input-field" htmlFor="post-image">Upload image here</label>
+            <input ref={postImageRef} type="file" id="post-image" hidden/>
+            <input value={caption} onChange={(e) => setCaption(e.target.value)} type="text" placeholder="Caption..." id="post-caption-field" />
 
-        {/* Upload Area */}
-        <div
-          className={`create-post__upload ${
-            isDragging ? "dragging" : ""
-          }`}
-          onClick={() => fileInputRef.current.click()}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setIsDragging(true);
-          }}
-          onDragLeave={() => setIsDragging(false)}
-          onDrop={handleDrop}
-        >
-          {preview ? (
-            <div className="create-post__preview">
-              <img src={preview} alt="preview" />
-              <button
-                type="button"
-                className="remove-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRemoveImage();
-                }}
-              >
-                ✕
-              </button>
+            <div>
+              <button type="submit" id="post-button">Create Post</button>
             </div>
-          ) : (
-            <span>Click or drag image to upload</span>
-          )}
-        </div>
-
-        {/* Caption */}
-        <input
-          type="text"
-          placeholder="Caption"
-          className="create-post__input"
-        />
-
-        <button className="create-post__button">Post</button>
+        </form>
       </div>
-    </div>
-  );
-};
+    </main>
+  )
+}
 
-export default CreatePost;
+export default CreatePost
