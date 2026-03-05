@@ -1,0 +1,87 @@
+.profile-page {
+  height: 100vh;
+  background-color: rgb(18, 18, 18);
+  color: whitesmoke;
+  display: flex;
+  justify-content: center;
+
+  .profile-container {
+    width: 480px;
+    border: 1px solid rgba(128, 128, 128, 0.258);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .profile-header {
+      border-bottom: 2px solid rgba(112, 128, 144, 0.317);
+      padding-block: 0.6rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 450;
+      letter-spacing: 0.05rem;
+      color: rgb(95, 170, 255);
+    }
+
+    .profile-details {
+      padding: 0.5rem;
+    //   background-color: brown;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+      height: 200px;
+
+      .profile-and-username {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        #user-name {
+            font-size: 1.1rem;
+            font-weight: 450;
+        }
+
+        #user-image {
+          height: 80px;
+          width: 80px;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+
+      #user-bio {
+        max-width: 80%;
+        height: 50%;
+        padding: 0.3rem;
+      }
+    }
+
+    .posts-section {
+        // border: 1px solid gray;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        .posts-section-header {
+            text-align: center;
+            border: 2px solid rgba(112, 128, 144, 0.11);
+            padding-block: 0.3rem;
+            color: rgba(92, 92, 92, 0.58);
+        }
+
+        .user-posts {
+            padding: 0.3rem;
+            flex: 1;
+            overflow-y: auto;
+
+            #no-posts-meesage {
+              text-align: center;
+              margin-top: 50%;
+              font-size: 1.5rem;
+              color: rgb(204, 204, 204);
+            }
+        }
+    }
+  }
+}

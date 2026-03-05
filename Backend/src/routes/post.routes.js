@@ -13,7 +13,7 @@ postRouter.post(
   postController.createPostController,
 );
 
-postRouter.get("/", identifyUser, postController.getPostController);
+postRouter.get("/profile", identifyUser, postController.getPostController);
 
 postRouter.get(
   "/details/:postId",

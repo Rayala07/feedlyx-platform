@@ -2,6 +2,7 @@ const imageKit = require("@imagekit/nodejs");
 const { toFile } = require("@imagekit/nodejs");
 const postModel = require("../models/post.model");
 const likeModel = require("../models/like.model");
+const userModel = require("../models/user.model");
 require("dotenv").config();
 
 const client = new imageKit({
@@ -35,8 +36,13 @@ async function getPostController(req, res) {
     user: userId,
   });
 
+  const user = await userModel
+    .findById(userId)
+    .select("profileImage username bio");
+
   res.status(200).json({
     message: "Fetch success",
+    user,
     posts,
   });
 }

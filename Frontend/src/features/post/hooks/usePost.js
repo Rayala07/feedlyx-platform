@@ -4,7 +4,7 @@ import {
   unlikePost,
   createPost,
 } from "../services/post.api";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { PostContext } from "../post.context";
 
 export const usePost = () => {
@@ -12,7 +12,7 @@ export const usePost = () => {
 
   // eslint-disable-next-line no-unused-vars
   const { loading, setLoading, post, setPost, feed, setFeed } = context;
-
+0
   const handleGetFeed = async () => {
     try {
       setLoading(true);
