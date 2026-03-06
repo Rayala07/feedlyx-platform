@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { register, login } from "./services/auth.api";
+import { register, login, logout } from "./services/auth.api";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
@@ -40,9 +40,20 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const handleLogout = async() => {
+    try {
+      setLoading(true)
+      await logout()
+      setUser(null)
+      setLoading(false)
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   return (
     <AuthContext.Provider
-      value={{ user, loading, handleRegister, handleLogin }}
+      value={{ user, loading, handleRegister, handleLogin, handleLogout }}
     >
       {children}
     </AuthContext.Provider>

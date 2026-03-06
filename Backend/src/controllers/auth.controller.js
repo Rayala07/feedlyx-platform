@@ -99,6 +99,7 @@ async function loginController(req, res) {
   });
 }
 
+// Get User Details
 async function getUserDetails(req, res) {
   const userId = req.user.id;
 
@@ -121,8 +122,18 @@ async function getUserDetails(req, res) {
   });
 }
 
+// Logout User
+async function logoutController(req, res) {
+  res.clearCookie("token");
+
+  res.status(200).json({
+    message: "Logout Success",
+  });
+}
+
 module.exports = {
   registerController,
   loginController,
   getUserDetails,
+  logoutController,
 };

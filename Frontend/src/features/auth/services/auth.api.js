@@ -42,3 +42,13 @@ export const getMe = async () => {
     console.log(err);
   }
 };
+
+export const logout = async () => {
+  try {
+    const response = await auth_api.post("/logout");
+
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -11,6 +11,9 @@ authRouter.post("/register", authController.registerController);
 authRouter.post("/login", authController.loginController);
 
 // GetUser Details
-authRouter.get("/get-me", identifyUser, authController.getUserDetails)
+authRouter.get("/get-me", identifyUser, authController.getUserDetails);
+
+// Logout User
+authRouter.post("/logout", authController.logoutController);
 
 module.exports = authRouter;

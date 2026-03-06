@@ -14,18 +14,47 @@
     height: 100%;
 
     .profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       border-bottom: 2px solid rgba(112, 128, 144, 0.317);
       padding-block: 0.6rem;
-      text-align: center;
+      padding-inline: 1rem;
       font-size: 1.5rem;
       font-weight: 450;
       letter-spacing: 0.05rem;
-      color: rgb(95, 170, 255);
+      color: rgb(168, 207, 252);
+
+      .profile-header-left {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+
+        #logout-btn {
+          font-size: 1rem;
+          cursor: pointer;
+          color: rgba(168, 207, 252, 0.573);
+          transition: all 0.25s ease;
+        }
+
+        #logout-btn:hover {
+          color: rgba(168, 207, 252);
+        }
+
+        #home-btn {
+          cursor: pointer;
+          transition: all 0.5s ease;
+        }
+
+        #home-btn:hover {
+          transform: translateY(-3px) scale(1.02);
+        }
+      }
     }
 
     .profile-details {
       padding: 0.5rem;
-    //   background-color: brown;
+      //   background-color: brown;
       display: flex;
       flex-direction: column;
       gap: 1.3rem;
@@ -37,8 +66,8 @@
         gap: 1rem;
 
         #user-name {
-            font-size: 1.1rem;
-            font-weight: 450;
+          font-size: 1.1rem;
+          font-weight: 450;
         }
 
         #user-image {
@@ -58,30 +87,48 @@
     }
 
     .posts-section {
-        // border: 1px solid gray;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
+      // border: 1px solid gray;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
 
-        .posts-section-header {
-            text-align: center;
-            border: 2px solid rgba(112, 128, 144, 0.11);
-            padding-block: 0.3rem;
-            color: rgba(92, 92, 92, 0.58);
+      .posts-section-header {
+        text-align: center;
+        border: 2px solid rgba(112, 128, 144, 0.11);
+        padding-block: 0.3rem;
+        color: rgba(92, 92, 92, 0.58);
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+      }
+
+      .user-posts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+
+        .post-container {
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          overflow: hidden;
+          display: block;
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+          }
         }
 
-        .user-posts {
-            padding: 0.3rem;
-            flex: 1;
-            overflow-y: auto;
-
-            #no-posts-meesage {
-              text-align: center;
-              margin-top: 50%;
-              font-size: 1.5rem;
-              color: rgb(204, 204, 204);
-            }
+        #no-posts-meesage {
+          grid-column: span 3;
+          text-align: center;
+          margin-top: 50%;
+          font-size: 1.5rem;
+          color: rgb(204, 204, 204);
         }
+      }
     }
   }
 }
